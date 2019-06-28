@@ -6,13 +6,17 @@ import { connect } from 'react-redux';
 
 
 
-const Navbar = () => {
+const Navbar = (props) => {
+    console.log(props);
     return (
         <nav className={"nav-wrapper grey darken-3"}>
             <div className={"container"}>
                 <Link to="/" className="brand-logo" > MarioPlan </Link>
-                <SignedInLinks/>
-                <SignedOnLinks/>
+                {
+                    (props.isEmpty)?<SignedOnLinks/>: <SignedInLinks/>
+                }
+
+
             </div>
         </nav>
     )
@@ -21,9 +25,9 @@ const Navbar = () => {
 
 
 const mapStateToProps = (state) => {
-    console.log(state);
+    console.log("hey see this - " , state);
     return {
-
+        isEmpty: state.firebase.auth.isEmpty
     }
 }
 export default connect(mapStateToProps)(Navbar);
